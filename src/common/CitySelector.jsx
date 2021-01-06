@@ -1,5 +1,6 @@
-import React, {useState} from "react"
+import React, {useState, useMemo} from "react"
 import classnames from 'classnames';
+import PropTypes from 'prop-types'
 import './CitySelector.css'
 
 
@@ -12,6 +13,8 @@ export default function CitySelector(props) {
     } = props;
     
     const [searchKey, setSearchKey] = useState('');
+    const key = useMemo(() => searchKey.trim(), [searchKey]);
+
     return (
         <div className={classnames('city-selector', {hidden: !show})}>
             <div className="city-search">
@@ -35,7 +38,7 @@ export default function CitySelector(props) {
                     />
                 </div>
                 <i 
-                    className={classnames('search-clean', {hidden: searchKey.length === 0})}
+                    className={classnames('search-clean', {hidden: key.length === 0})}
                     onClick={() => setSearchKey('')}
                 >
                     &#xf063;
@@ -43,4 +46,11 @@ export default function CitySelector(props) {
             </div>
         </div>
     )
+}
+
+CitySelector.propsTypes = {
+    show: PropTypes.bool.isRequired,
+    cityData: PropTypes.object,
+    isLoading: PropTypes.bool.isRequired,
+    onBack: PropTypes.func.isRequired
 }
