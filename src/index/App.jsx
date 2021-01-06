@@ -1,4 +1,5 @@
 import './App.css'
+import React, {useCallback} from "react"
 import Header from '../common/Header.jsx'
 import DepartDate from './DepartDate.jsx'
 import HighSpeed from './HighSpeed.jsx'
@@ -7,9 +8,15 @@ import Submit from './Submit.jsx'
 import {connect} from 'react-redux'
 
 function App(props) {
+
+    const onBack = useCallback(() => {
+        window.history.back();
+    },[]);
     return (
         <div>
-            <Header />
+            <div className="header-wrapper">
+                <Header title="Train ticket" onBack={onBack}/>
+            </div>
             <Journey />
             <HighSpeed />
             <Submit />
@@ -18,6 +25,6 @@ function App(props) {
 }
 
 export default connect(
-    function mapStateToProps(state) {},
-    function mapDispatchToProps(dispatch) {}
+    function mapStateToProps(state) {return {}},
+    function mapDispatchToProps(dispatch) {return {}}
 )(App);
