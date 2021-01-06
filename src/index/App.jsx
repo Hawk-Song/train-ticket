@@ -8,15 +8,21 @@ import Journey from './Journey.jsx'
 import Submit from './Submit.jsx'
 import {connect} from 'react-redux'
 
+import CitySelector from '../common/CitySelector.jsx'
+
 import {
     exchangeFromTo,
     showCitySelector,
+    hideCitySelector
 } from './actions';
 
 function App(props) {
     const {
         from,
         to,
+        isCitySelectorVisible,
+        cityData,
+        isLoadingCityData,
         dispatch
     } = props;
 
@@ -30,6 +36,12 @@ function App(props) {
             showCitySelector
         }, dispatch)
     }, []);
+
+    const citySelectorCbs = useMemo(() => {
+        return bindActionCreators({
+            onBack: hideCitySelector,
+        }, dispatch)
+    }, [])
 
     return (
         <div>
@@ -45,6 +57,12 @@ function App(props) {
                 <HighSpeed />
                 <Submit />
             </form>
+            <CitySelector 
+                show={isCitySelectorVisible}
+                cityData={cityData}
+                isLoading={isLoadingCityData}
+                {...citySelectorCbs}
+            />
         </div>
     )
 }
