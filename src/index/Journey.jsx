@@ -30,7 +30,7 @@ export default function Journey(props) {
                 <img src={swithImg} width="70" height="40" alt="switch"/>
             </div>
             <div className="journey-station"
-                onClick={() => showCitySelector(true)}
+                onClick={() => showCitySelector(false)}
             >
             <input 
                 type="text"

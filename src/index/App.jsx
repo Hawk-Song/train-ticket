@@ -15,6 +15,7 @@ import {
     showCitySelector,
     hideCitySelector,
     fetchCityData,
+    setSelectedCity,
 } from './actions';
 
 function App(props) {
@@ -42,6 +43,7 @@ function App(props) {
         return bindActionCreators({
             onBack: hideCitySelector,
             fetchCityData,
+            onSelect: setSelectedCity,
         }, dispatch)
     }, [])
 
