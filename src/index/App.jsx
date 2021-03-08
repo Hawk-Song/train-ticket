@@ -25,7 +25,9 @@ function App(props) {
         isCitySelectorVisible,
         cityData,
         isLoadingCityData,
-        dispatch
+        dispatch,
+        departDate,
+        showDateSelector,
     } = props;
 
     const onBack = useCallback(() => {
@@ -47,6 +49,12 @@ function App(props) {
         }, dispatch)
     }, [])
 
+    const departDateCbs = useMemo(() => {
+        return bindActionCreators({
+            onClick: showDateSelector
+        })
+    });
+
     return (
         <div>
             <div className="header-wrapper">
@@ -57,6 +65,10 @@ function App(props) {
                     from={from} 
                     to={to}
                     {...cbs}
+                />
+                <DepartDate 
+                    time={departDate}
+                    {...departDateCbs}
                 />
                 <HighSpeed />
                 <Submit />
