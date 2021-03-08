@@ -9,6 +9,7 @@ import Submit from './Submit.jsx'
 import {connect} from 'react-redux'
 
 import CitySelector from '../common/CitySelector.jsx'
+import DateSelector from '../common/DateSelector.jsx'
 
 import {
     exchangeFromTo,
@@ -16,6 +17,8 @@ import {
     hideCitySelector,
     fetchCityData,
     setSelectedCity,
+    showDateSelector,
+    hideDateSelector,
 } from './actions';
 
 function App(props) {
@@ -23,11 +26,11 @@ function App(props) {
         from,
         to,
         isCitySelectorVisible,
+        isDateSelectorVisible,
         cityData,
         isLoadingCityData,
         dispatch,
         departDate,
-        showDateSelector,
     } = props;
 
     const onBack = useCallback(() => {
@@ -51,9 +54,15 @@ function App(props) {
 
     const departDateCbs = useMemo(() => {
         return bindActionCreators({
-            onClick: showDateSelector
-        })
+            onClick: showDateSelector,
+        }, dispatch);
     });
+
+    const dateSelectorCbs = useMemo(() => {
+        return bindActionCreators({
+            onBack: hideDateSelector
+        }, dispatch);
+    }, []);
 
     return (
         <div>
@@ -78,6 +87,10 @@ function App(props) {
                 cityData={cityData}
                 isLoading={isLoadingCityData}
                 {...citySelectorCbs}
+            />
+            <DateSelector
+                show={isDateSelectorVisible}
+                {...dateSelectorCbs}
             />
         </div>
     )
