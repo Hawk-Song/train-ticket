@@ -22,6 +22,7 @@ import {
     showDateSelector,
     hideDateSelector,
     setDepartDate,
+    toggleHighSpeed,
 } from './actions';
 
 function App(props) {
@@ -35,7 +36,6 @@ function App(props) {
         highSpeed,
         dispatch,
         departDate,
-        toggleHighSpeed,
     } = props;
 
     const onBack = useCallback(() => {
