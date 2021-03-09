@@ -157,7 +157,7 @@ export function setArriveTimeEnd(arriveTimeEnd) {
         payload: arriveTimeEnd,
     }
 }
-export function setIsFiltersVisible() {
+export function toggleIsFiltersVisible() {
     return (dispatch, getState) => {
         const {isFiltersVisible} = getState();
         dispatch({
