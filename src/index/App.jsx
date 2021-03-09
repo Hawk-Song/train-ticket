@@ -11,6 +11,8 @@ import {connect} from 'react-redux'
 import CitySelector from '../common/CitySelector.jsx'
 import DateSelector from '../common/DateSelector.jsx'
 
+import {h0} from '../common/fp';
+
 import {
     exchangeFromTo,
     showCitySelector,
@@ -19,6 +21,7 @@ import {
     setSelectedCity,
     showDateSelector,
     hideDateSelector,
+    setDepartDate,
 } from './actions';
 
 function App(props) {
@@ -64,6 +67,14 @@ function App(props) {
         }, dispatch);
     }, []);
 
+    const onSelectDate = useCallback((day) => {
+        if (!day) return;
+        if (day < h0()) return;
+        
+        dispatch(setDepartDate(day));
+        dispatch(hideDateSelector());
+    }, []);
+
     return (
         <div>
             <div className="header-wrapper">
@@ -91,6 +102,7 @@ function App(props) {
             <DateSelector
                 show={isDateSelectorVisible}
                 {...dateSelectorCbs}
+                onSelect={onSelectDate}
             />
         </div>
     )
