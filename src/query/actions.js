@@ -127,7 +127,7 @@ export function setArriveStations(arriveStations) {
         payload: arriveStations,
     }
 }
-export function setCheckArriveStations(checkArriveStations) {
+export function setCheckedArriveStations(checkedArriveStations) {
     return {
         type: ACTION_SET_CHECKED_ARRIVE_STATIONS,
         payload: checkedArriveStations,
