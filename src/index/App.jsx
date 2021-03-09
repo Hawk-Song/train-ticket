@@ -88,7 +88,7 @@ function App(props) {
             <div className="header-wrapper">
                 <Header title="Train ticket" onBack={onBack}/>
             </div>
-            <form className="form">
+            <form className="form" action="./query.html">
                 <Journey 
                     from={from} 
                     to={to}
