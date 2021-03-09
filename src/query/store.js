@@ -26,13 +26,13 @@ export default createStore(
         departStations: [],
         checkedDepartStations: {},
         arriveStations: [],
-        checkArriveStations: {},
+        checkedArriveStations: {},
         departTimeStart: 0,
         departTimeEnd: 24,
         arriveTimeStart: 0,
         arriveTimeEnd: 24,
         isFiltersVisible: false,
         searchParsed: false,
-},
+    },
     applyMiddleware(thunk)
 )

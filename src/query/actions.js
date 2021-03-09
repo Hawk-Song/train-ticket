@@ -130,7 +130,7 @@ export function setArriveStations(arriveStations) {
 export function setCheckArriveStations(checkArriveStations) {
     return {
         type: ACTION_SET_CHECKED_ARRIVE_STATIONS,
-        payload: checkArriveStations,
+        payload: checkedArriveStations,
     }
 }
 export function setDepartTimeStart(departTimeStart) {
