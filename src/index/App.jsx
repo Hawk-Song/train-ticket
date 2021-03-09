@@ -32,8 +32,10 @@ function App(props) {
         isDateSelectorVisible,
         cityData,
         isLoadingCityData,
+        highSpeed,
         dispatch,
         departDate,
+        toggleHighSpeed,
     } = props;
 
     const onBack = useCallback(() => {
@@ -67,6 +69,12 @@ function App(props) {
         }, dispatch);
     }, []);
 
+    const highSpeedCbs = useMemo(() => {
+        return bindActionCreators({
+            toggle: toggleHighSpeed,
+        }, dispatch)
+    }, []);
+
     const onSelectDate = useCallback((day) => {
         if (!day) return;
         if (day < h0()) return;
@@ -90,7 +98,10 @@ function App(props) {
                     time={departDate}
                     {...departDateCbs}
                 />
-                <HighSpeed />
+                <HighSpeed 
+                    highSpeed={highSpeed}
+                    {...highSpeedCbs}
+                />
                 <Submit />
             </form>
             <CitySelector 
