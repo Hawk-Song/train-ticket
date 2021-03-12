@@ -162,6 +162,21 @@ const BottomModal = memo(function BottomModal(props) {
         }
     ];
 
+    function sure() {
+        setCheckedTicketTypes(localCheckedTicketTypes);
+        setCheckedTrainTypes(localCheckedTrainTypes)
+        setCheckedDepartStations(localCheckedDepartStations);
+        setCheckedArriveStations(localCheckedArriveStations);
+
+        setDepartTimeStart(localDepartTimeStart);
+        setDepartTimeEnd(localDepartTimeEnd);
+        
+        setArriveTimeStart(localArriveTimeStart);
+        setArriveTimeEnd(localArriveTimeEnd);
+
+        toggleIsFiltersVisible();
+    }
+
     const isResetDisabled = useMemo(() => {
         return Object.keys(localCheckedTicketTypes).length === 0
             && Object.keys(localCheckedTrainTypes).length === 0
@@ -182,23 +197,8 @@ const BottomModal = memo(function BottomModal(props) {
         localArriveTimeEnd,
     ])
 
-    function sure() {
-        setCheckedTicketTypes(localCheckedTicketTypes);
-        setCheckedTrainTypes(localCheckedTrainTypes)
-        setCheckedDepartStations(localCheckedDepartStations);
-        setCheckedArriveStations(localCheckedArriveStations);
-
-        setDepartTimeStart(localDepartTimeStart);
-        setDepartTimeEnd(localDepartTimeEnd);
-        
-        setArriveTimeStart(localArriveTimeStart);
-        setArriveTimeEnd(localArriveTimeEnd);
-
-        toggleIsFiltersVisible();
-    }
-
     function reset() {
-        if (isResetDisabled) {
+        if (isResetDisabled) { //if all values are default, then we don't reset;
             return;
         }
 
@@ -310,6 +310,29 @@ export default function Bottom(props) {
         setArriveTimeEnd,
 
     } = props;
+
+    const noChecked = useMemo(() => {
+        return (
+            Object.keys(checkedTicketTypes).length === 0 &&
+            Object.keys(checkedTrainTypes).length === 0 &&
+            Object.keys(checkedDepartStations).length === 0 &&
+            Object.keys(checkedArriveStations).length === 0 &&
+            departTimeStart === 0 &&
+            departTimeEnd === 24 &&
+            arriveTimeStart === 0 &&
+            arriveTimeEnd === 24
+        );
+    }, [
+        checkedTicketTypes,
+        checkedTrainTypes,
+        checkedDepartStations,
+        checkedArriveStations,
+        departTimeStart,
+        departTimeEnd,
+        arriveTimeStart,
+        arriveTimeEnd,
+    ]);
+
     return (
         <div className="bottom">
             <div className="bottom-filters">
@@ -332,10 +355,10 @@ export default function Bottom(props) {
                     Only Tickets
                 </span>
                 <span
-                    className={classnames('item', {'item-on': isFiltersVisible})}
+                    className={classnames('item', {'item-on': isFiltersVisible || !noChecked})}
                     onClick={toggleIsFiltersVisible}
                 >
-                    <i className="icon">{ '\uf0f7' }</i>
+                    <i className="icon">{noChecked ? '\uf0f7' : '\uf446'}</i>
                     General Filter
                 </span>
             </div>
