@@ -1,4 +1,5 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useMemo} from 'react';
+import { bindActionCreators } from 'redux';
 import Header from '../common/Header.jsx';
 import useNav from '../common/useNav';
 import Nav from '../common/Nav.jsx';
@@ -25,6 +26,8 @@ import {
     setArriveDate,
     setDurationStr,
     setTickets,
+
+    toggleIsScheduleVisible
 } from './actions';
 
 
@@ -102,6 +105,15 @@ function App(props) {
         nextDate
     );
 
+    const detailCbs = useMemo(() => {
+        return bindActionCreators(
+            {
+                toggleIsScheduleVisible,
+            },
+            dispatch
+        );
+    }, []);
+
     if (!searchParsed) {
         return null;
     }
@@ -119,6 +131,27 @@ function App(props) {
                     prev={prev}
                     next={next}
                 />
+            </div>
+            <div className="detail-wrapper">
+                <Detail
+                    departDate={departDate}
+                    arriveDate={arriveDate}
+                    departTimeStr={departTimeStr}
+                    arriveTimeStr={arriveTimeStr}
+                    trainNumber={trainNumber}
+                    departStation={departStation}
+                    arriveStation={arriveStation}
+                    durationStr={durationStr}
+                >
+                    <span className="left"></span>
+                    <span
+                        className="schedule"
+                        onClick={() => detailCbs.toggleIsScheduleVisible()}
+                    >
+                        Schedule
+                    </span>
+                    <span className="right"></span>
+                </Detail>
             </div>
         </div>
     )
