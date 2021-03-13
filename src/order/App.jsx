@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, bindActionCreators } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { bindActionCreators } from 'redux';
 import URI from 'urijs';
 import dayjs from 'dayjs';
 import './App.css'
@@ -8,6 +9,7 @@ import Account from './Account.jsx';
 import Choose from './Choose.jsx';
 import Passengers from './Passengers.jsx';
 import Ticket from './Ticket.jsx';
+import Menu from './Menu.jsx';
 
 
 import {connect} from 'react-redux'
@@ -22,7 +24,13 @@ import {
 
     fetchInitial,
     createAdult,
-    createChild
+    createChild,
+    removePassenger,
+    updatePassenger,
+    hideMenu,
+    showGenderMenu,
+    showFollowAdultMenu,
+    showTicketTypeMenu,
 } from './actions';
 
 function App(props) {
@@ -80,6 +88,20 @@ function App(props) {
             {
                 createAdult,
                 createChild,
+                removePassenger,
+                updatePassenger,
+                showGenderMenu,
+                showFollowAdultMenu,
+                showTicketTypeMenu,
+            },
+            dispatch
+        );
+    }, []);
+
+    const menuCbs = useMemo(() => {
+        return bindActionCreators(
+            {
+                hideMenu,
             },
             dispatch
         );
@@ -113,6 +135,7 @@ function App(props) {
             </div>
             <Ticket price={price} type={seatType} />
             <Passengers passengers={passengers} {...passengersCbs}/>
+            <Menu show={isMenuVisible} {...menu} {...menuCbs} />
         </div>
     )
 }

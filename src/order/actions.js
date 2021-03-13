@@ -170,7 +170,7 @@ export function createChild() {
         }
 
         if (!adultFound) {
-            alert('请至少正确添加一个同行成人');
+            alert('Please at least add a follow adult');
             return;
         }
 
@@ -249,12 +249,12 @@ export function showGenderMenu(id) {
                 },
                 options: [
                     {
-                        title: '男',
+                        title: 'Male',
                         value: 'male',
                         active: 'male' === passenger.gender,
                     },
                     {
-                        title: '女',
+                        title: 'Female',
                         value: 'female',
                         active: 'female' === passenger.gender,
                     },
@@ -321,7 +321,7 @@ export function showTicketTypeMenu(id) {
                     } else {
                         const adult = passengers.find(
                             passenger =>
-                                passenger.id === id &&
+                                passenger.id !== id &&
                                 passenger.ticketType === 'adult'
                         );
 
@@ -339,7 +339,7 @@ export function showTicketTypeMenu(id) {
                                 )
                             );
                         } else {
-                            alert('没有其他成人乘客');
+                            alert('There is no other passenger');
                         }
                     }
 
@@ -347,12 +347,12 @@ export function showTicketTypeMenu(id) {
                 },
                 options: [
                     {
-                        title: '成人票',
+                        title: 'Adult Ticket',
                         value: 'adult',
                         active: 'adult' === passenger.ticketType,
                     },
                     {
-                        title: '儿童票',
+                        title: 'Child Ticket',
                         value: 'child',
                         active: 'child' === passenger.ticketType,
                     },

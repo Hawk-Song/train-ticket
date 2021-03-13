@@ -58,7 +58,7 @@
 }
 
 .passenger .items .item label.ticket-type {
-    width: 70px;
+    width: 100px;
     position: absolute;
     top: 0;
     right: 0;
