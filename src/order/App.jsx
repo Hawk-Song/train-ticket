@@ -99,6 +99,8 @@ function App(props) {
                     ></span>
                 </Detail>
             </div>
+            <Ticket price={price} type={seatType} />
+            <Passengers passengers={passengers} />
         </div>
     )
 }
