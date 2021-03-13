@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, bindActionCreators } from 'react';
 import URI from 'urijs';
 import dayjs from 'dayjs';
 import './App.css'
@@ -21,6 +21,8 @@ import {
     setSearchParsed,
 
     fetchInitial,
+    createAdult,
+    createChild
 } from './actions';
 
 function App(props) {
@@ -73,6 +75,16 @@ function App(props) {
         dispatch(fetchInitial(url));
     }, [searchParsed, departStation, arriveStation, seatType, departDate]);
 
+    const passengersCbs = useMemo(() => {
+        return bindActionCreators(
+            {
+                createAdult,
+                createChild,
+            },
+            dispatch
+        );
+    }, []);
+
     if (!searchParsed) {
         return null;
     }
@@ -100,7 +112,7 @@ function App(props) {
                 </Detail>
             </div>
             <Ticket price={price} type={seatType} />
-            <Passengers passengers={passengers} />
+            <Passengers passengers={passengers} {...passengersCbs}/>
         </div>
     )
 }

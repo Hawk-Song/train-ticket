@@ -20,6 +20,8 @@ Passenger.propTypes = {
 const Passengers = memo(function Passengers(props) {
     const {
         passengers,
+        createAdult,
+        createChild,
     } = props;
 
 
@@ -36,10 +38,10 @@ const Passengers = memo(function Passengers(props) {
                 })}
             </ul>
             <section className="add">
-                <div className="adult" >
+                <div className="adult" onClick={() => createAdult()}>
                     Add Adult
                 </div>
-                <div className="child">
+                <div className="child" onClick={() => createChild()}>
                     Add Children
                 </div>
             </section>
@@ -49,6 +51,8 @@ const Passengers = memo(function Passengers(props) {
 
 Passengers.propTypes = {
     passengers: PropTypes.array.isRequired,
+    createAdult: PropTypes.func.isRequired,
+    createChild: PropTypes.func.isRequired,
 };
 
 export default Passengers;
