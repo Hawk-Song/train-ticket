@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback, useMemo} from 'react';
+import React, {useEffect, useCallback, useMemo, lazy, Suspense} from 'react';
 import { bindActionCreators } from 'redux';
 import Header from '../common/Header.jsx';
 import useNav from '../common/useNav';
@@ -29,7 +29,7 @@ import {
 
     toggleIsScheduleVisible
 } from './actions';
-
+const Schedule = lazy(() => import('./Schedule.jsx'));
 
 function App(props) {
     const {
@@ -153,6 +153,21 @@ function App(props) {
                     <span className="right"></span>
                 </Detail>
             </div>
+            {isScheduleVisible && (
+                <div
+                    className="mask"
+                    onClick={() => dispatch(toggleIsScheduleVisible())}
+                >
+                    <Suspense fallback={<div>loading</div>}>
+                        <Schedule
+                            date={departDate}
+                            trainNumber={trainNumber}
+                            departStation={departStation}
+                            arriveStation={arriveStation}
+                        />
+                    </Suspense>
+                </div>
+            )}
         </div>
     )
 
